@@ -15,7 +15,7 @@ import {
   type Selection,
 } from "d3";
 import { useState, useCallback, useLayoutEffect } from "react";
-import { ChartId, ClassNames } from "./Chart.constants";
+import { ChartId, ClassNames, MD_BREAKPOINT } from "./Chart.constants";
 import { getChartData } from "./Chart.requests";
 import type {
   IUseChartArgs,
@@ -39,7 +39,7 @@ const axisStyle = (
 export const useChart = ({ width, height }: IUseChartArgs) => {
   const [domain, setDomain] = useState<IDomain>();
 
-  const { data } = useQuery(["chartData"], getChartData, {
+  const { data, isLoading } = useQuery(["chartData"], getChartData, {
     initialData: [],
     onSuccess(data) {
       const domain = {
@@ -55,8 +55,8 @@ export const useChart = ({ width, height }: IUseChartArgs) => {
     (data: IChartPoint[], domain: IDomain): void => {
       if (width !== 0 && height !== 0) {
         const margin = {
-          x: width * 0.05,
-          y: height * 0.05,
+          x: 50,
+          y: 50,
         };
 
         const range = {
@@ -79,7 +79,10 @@ export const useChart = ({ width, height }: IUseChartArgs) => {
           .call(
             axisBottom(scale.x)
               .tickSize(3)
-              .ticks(timeMinute.every(20), "%I:%M %p")
+              .ticks(
+                timeMinute.every(width > MD_BREAKPOINT ? 30 : 60),
+                "%I:%M %p"
+              )
           )
           .call((axis) =>
             axis.select(".domain").attr("class", `domain ${ClassNames.Tick}`)
@@ -138,4 +141,6 @@ export const useChart = ({ width, height }: IUseChartArgs) => {
       handleSetPath(data, domain);
     }
   }, [data, domain, handleSetPath]);
+
+  return { isLoading };
 };
