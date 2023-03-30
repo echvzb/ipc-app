@@ -1,5 +1,6 @@
 import { type FC, useRef, useState, useEffect } from "react";
 import Spinner from "../Spinner";
+import Title from "../Title";
 import { ChartId, ClassNames, MD_BREAKPOINT } from "./Chart.constants";
 import { useChart } from "./Chart.hooks";
 
@@ -37,47 +38,45 @@ const Chart: FC = () => {
   }, []);
 
   return (
-    <div className="container mx-auto py-10">
-      <div className="rounded-lg bg-slate-100 px-8 shadow">
-        {isLoading ? (
-          <div className="flex flex-auto flex-col items-center justify-center py-10 md:py-8">
-            <Spinner />
+    <div className="rounded-lg bg-slate-100 px-8 shadow">
+      {isLoading ? (
+        <div className="flex flex-auto flex-col items-center justify-center py-10 md:py-8">
+          <Spinner />
+        </div>
+      ) : (
+        <>
+          <div className="pt-8">
+            <Title>Indice de Precios y Cotizaciones</Title>
           </div>
-        ) : (
-          <>
-            <h3 className="pt-8 text-lg font-medium text-slate-900">
-              Indice de Precios y Cotizaciones
-            </h3>
-            <div ref={cardRef}>
-              <svg
-                width={cardDimensions.width}
-                height={cardDimensions.height}
-                viewBox={`0 0 ${cardDimensions.width} ${cardDimensions.height}`}
-                className="transition duration-500"
-              >
-                <g id={ChartId.XAxis} />
-                <g id={ChartId.YAxis}>
-                  <text
-                    textAnchor="end"
-                    fill="currentColor"
-                    id={ChartId.YAxisLabel}
-                    className={ClassNames.Text}
-                  >
-                    Precio
-                  </text>
-                </g>
-                <path
-                  id={ChartId.Line}
-                  strokeWidth={1.5}
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="fill-none stroke-slate-700"
-                />
-              </svg>
-            </div>
-          </>
-        )}
-      </div>
+          <div ref={cardRef}>
+            <svg
+              width={cardDimensions.width}
+              height={cardDimensions.height}
+              viewBox={`0 0 ${cardDimensions.width} ${cardDimensions.height}`}
+              className="transition duration-500"
+            >
+              <g id={ChartId.XAxis} />
+              <g id={ChartId.YAxis}>
+                <text
+                  textAnchor="end"
+                  fill="currentColor"
+                  id={ChartId.YAxisLabel}
+                  className={ClassNames.Text}
+                >
+                  Precio
+                </text>
+              </g>
+              <path
+                id={ChartId.Line}
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="fill-none stroke-slate-700"
+              />
+            </svg>
+          </div>
+        </>
+      )}
     </div>
   );
 };
