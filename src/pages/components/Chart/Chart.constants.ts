@@ -1,8 +1,16 @@
 export const MD_BREAKPOINT = 768;
 
+export const CHART_MARGIN = {
+  TOP: 50,
+  RIGHT: 0,
+  LEFT: 50,
+  BOTTOM: 50,
+}
+
 export enum ClassNames {
-  Tick = "stroke-neutral-300",
-  Text = "font-sans text-neutral-600 text-xs",
+  Tick = "stroke-slate-300",
+  Text = "font-sans text-slate-600 text-xs",
+  SvgContainer = "transition"
 }
 
 export enum ChartId {
@@ -10,5 +18,4 @@ export enum ChartId {
   YAxis = "y-axis",
   YAxisLabel = "label-y-axis",
   Line = "line",
-  Tooltip = "tooltip",
 }

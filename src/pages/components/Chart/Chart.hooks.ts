@@ -2,12 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import {
   axisBottom,
   axisLeft,
-  // bisect,
   curveLinear,
+  easeLinear,
   extent,
   format,
   line,
-  // pointer,
   scaleLinear,
   scaleTime,
   select,
@@ -15,7 +14,12 @@ import {
   type Selection,
 } from "d3";
 import { useState, useCallback, useLayoutEffect } from "react";
-import { ChartId, ClassNames, MD_BREAKPOINT } from "./Chart.constants";
+import {
+  ChartId,
+  CHART_MARGIN,
+  ClassNames,
+  MD_BREAKPOINT,
+} from "./Chart.constants";
 import { getChartData } from "./Chart.requests";
 import type {
   IUseChartArgs,
@@ -41,6 +45,7 @@ export const useChart = ({ width, height }: IUseChartArgs) => {
 
   const { data, isLoading } = useQuery(["chartData"], getChartData, {
     initialData: [],
+    refetchOnWindowFocus: false,
     onSuccess(data) {
       const domain = {
         x: extent(data, getXValue) as XDomainT,
@@ -54,14 +59,9 @@ export const useChart = ({ width, height }: IUseChartArgs) => {
   const handleSetPath = useCallback(
     (data: IChartPoint[], domain: IDomain): void => {
       if (width !== 0 && height !== 0) {
-        const margin = {
-          x: 50,
-          y: 50,
-        };
-
         const range = {
-          x: [margin.x, width - margin.x],
-          y: [margin.y, height - margin.y],
+          x: [CHART_MARGIN.LEFT, width - CHART_MARGIN.RIGHT],
+          y: [CHART_MARGIN.BOTTOM, height - CHART_MARGIN.TOP],
         };
 
         const scale = {
@@ -75,7 +75,7 @@ export const useChart = ({ width, height }: IUseChartArgs) => {
         ]);
 
         select<SVGGElement, unknown>(`#${ChartId.XAxis}`)
-          .attr("transform", `translate(0, ${height - margin.y})`)
+          .attr("transform", `translate(0, ${height - CHART_MARGIN.BOTTOM})`)
           .call(
             axisBottom(scale.x)
               .tickSize(3)
@@ -90,10 +90,10 @@ export const useChart = ({ width, height }: IUseChartArgs) => {
           .call(axisStyle);
 
         select<SVGGElement, unknown>(`#${ChartId.YAxis}`)
-          .attr("transform", `translate(${margin.x}, 0)`)
+          .attr("transform", `translate(${CHART_MARGIN.LEFT}, 0)`)
           .call(
             axisLeft(scale.y)
-              .tickSize(-(width - margin.x * 2))
+              .tickSize(-(width - (CHART_MARGIN.LEFT + CHART_MARGIN.RIGHT)))
               .tickFormat(format("$,"))
           )
           .call((axis) => axis.select(".domain").attr("stroke-width", 0))
@@ -101,36 +101,23 @@ export const useChart = ({ width, height }: IUseChartArgs) => {
             axis
               .select(`#${ChartId.YAxisLabel}`)
               .attr("x", 0)
-              .attr("y", margin.y)
+              .attr("y", CHART_MARGIN.TOP)
           )
           .call(axisStyle);
+        const path = select<SVGPathElement, unknown>(`#${ChartId.Line}`);
+        path.attr("d", line().curve(curveLinear)(points));
+        const pathNode = path.node();
+        const length = pathNode ? pathNode.getTotalLength() : 0;
 
-        select(`#${ChartId.Line}`).attr("d", line().curve(curveLinear)(points));
-        // const tooltip = select(`#${ChartId.Tooltip}`);
+        path
+          .attr("stroke-dasharray", `${length} ${length}`)
+          .attr("stroke-dashoffset", length)
+          .transition()
+          .ease(easeLinear)
+          .attr("stroke-dashoffset", 0)
+          .duration(5000);
 
-        // const handlePointMoved = (event: MouseEvent): void => {
-        //   const i = bisect(
-        //     data.map(getXValue),
-        //     scale.x.invert(pointer(event)[0])
-        //   );
-
-        //   if (points[i]) {
-        //     tooltip.style("opacity", 1);
-        //     tooltip.attr(
-        //       "transform",
-        //       `translate(${points[i][0] - 10}, ${points[i][1] + 5})`
-        //     );
-        //   }
-        // };
-
-        // const handlePointLeave = (): void => {
-        //   tooltip.style("opacity", 0);
-        // };
-
-        // select("svg")
-        //   .on("pointerenter pointermove", handlePointMoved)
-        //   .on("touchstart", (event) => event.preventDefault())
-        //   .on("pointerleave", handlePointLeave);
+        select("svg").style("opacity", 1);
       }
     },
     [width, height]

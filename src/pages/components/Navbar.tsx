@@ -5,19 +5,19 @@ import { type FC } from "react";
 const Navbar: FC = () => {
   const { data: sessionData } = useSession();
   return (
-    <header className="z-50 flex w-full flex-wrap bg-neutral-100 py-4 text-sm shadow sm:flex-nowrap sm:justify-start">
+    <header className="z-50 flex w-full flex-wrap bg-slate-700 py-4 text-sm shadow sm:flex-nowrap sm:justify-start">
       <nav
         className="mx-auto w-full max-w-[85rem] px-4 sm:flex sm:items-center sm:justify-between"
         aria-label="Global"
       >
         <div className="flex items-center justify-between">
-          <a className="flex-none text-xl font-semibold">
+          <a className="flex-none text-xl font-semibold text-neutral-100">
             IPC APP
           </a>
           <div className="sm:hidden">
             <button
               type="button"
-              className="hs-collapse-toggle inline-flex items-center justify-center gap-2 rounded-md border bg-neutral-100 p-2 align-middle text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white"
+              className="hs-collapse-toggle inline-flex items-center justify-center gap-2 rounded-md border bg-slate-700 p-2 align-middle text-sm font-medium text-slate-50 shadow-sm transition-all hover:bg-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-200"
               data-hs-collapse="#navbar-collapse-with-animation"
               aria-controls="navbar-collapse-with-animation"
               aria-label="Toggle navigation"
@@ -62,11 +62,11 @@ const Navbar: FC = () => {
                     alt="Image Description"
                   />
                   <div className="ml-3">
-                    <h3 className="font-semibold text-gray-800">
+                    <h3 className="font-semibold text-gray-300">
                       {sessionData.user.name}
                     </h3>
                     <button
-                      className="text-sm font-medium text-gray-500"
+                      className="text-sm font-medium text-gray-400 hover:text-gray-100"
                       onClick={() => void signOut()}
                     >
                       Sign out

@@ -38,14 +38,14 @@ const Chart: FC = () => {
 
   return (
     <div className="container mx-auto py-10">
-      <div className="rounded-lg bg-neutral-100 px-8 shadow">
+      <div className="rounded-lg bg-slate-100 px-8 shadow">
         {isLoading ? (
           <div className="flex flex-auto flex-col items-center justify-center py-10 md:py-8">
             <Spinner />
           </div>
         ) : (
           <>
-            <h3 className="pt-8 text-lg font-medium">
+            <h3 className="pt-8 text-lg font-medium text-slate-900">
               Indice de Precios y Cotizaciones
             </h3>
             <div ref={cardRef}>
@@ -53,13 +53,8 @@ const Chart: FC = () => {
                 width={cardDimensions.width}
                 height={cardDimensions.height}
                 viewBox={`0 0 ${cardDimensions.width} ${cardDimensions.height}`}
+                className="transition duration-500"
               >
-                {/* <rect
-              id={ChartId.Tooltip}
-              style={{ pointerEvents: "none" }}
-              width="20px"
-              height="10px"
-            /> */}
                 <g id={ChartId.XAxis} />
                 <g id={ChartId.YAxis}>
                   <text
@@ -76,7 +71,7 @@ const Chart: FC = () => {
                   strokeWidth={1.5}
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="fill-none stroke-gray-700"
+                  className="fill-none stroke-slate-700"
                 />
               </svg>
             </div>
