@@ -5,7 +5,7 @@ import Head from "next/head";
 import { api } from "~/utils/api";
 import "~/styles/globals.css";
 import { useEffect } from "react";
-import Navbar from "./components/Navbar";
+import Navbar from "../components/Navbar";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,

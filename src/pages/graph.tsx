@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
-import Chart from "./components/Chart";
-import { useProtectedPage } from "./hooks/useProtectedPage";
+import Chart from "../components/Chart";
+import { useProtectedPage } from "../hooks/useProtectedPage";
 
 const GraphPage: NextPage = () => {
   const { data, status } = useProtectedPage();

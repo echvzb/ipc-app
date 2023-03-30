@@ -1,8 +1,8 @@
 import { type NextPage } from "next";
 import { api } from "~/utils/api";
-import SpinnerOverlay from "./components/SpinnerOverlay";
-import Title from "./components/Title";
-import { useProtectedPage } from "./hooks/useProtectedPage";
+import SpinnerOverlay from "../components/SpinnerOverlay";
+import Title from "../components/Title";
+import { useProtectedPage } from "../hooks/useProtectedPage";
 
 const ConfigPage: NextPage = () => {
   const { mutate, isLoading: isMutationLoading } =
