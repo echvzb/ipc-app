@@ -51,7 +51,7 @@ const ConfigPage: NextPage = () => {
                         <input
                           type="checkbox"
                           id={`can-see-graph-${user.id}`}
-                          checked={user.canSeeGraph as boolean}
+                          checked={user.canSeeGraph} // eslint-disable-line
                           onChange={() => {
                             mutate(
                               {
