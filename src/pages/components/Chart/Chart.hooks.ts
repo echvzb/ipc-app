@@ -116,8 +116,6 @@ export const useChart = ({ width, height }: IUseChartArgs) => {
           .ease(easeLinear)
           .attr("stroke-dashoffset", 0)
           .duration(5000);
-
-        select("svg").style("opacity", 1);
       }
     },
     [width, height]

@@ -12,7 +12,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   useEffect(() => {
-    import("preline");
+    import("preline" as string);
   }, []);
 
   return (
