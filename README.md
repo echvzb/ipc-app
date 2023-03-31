@@ -1,28 +1,20 @@
-# Create T3 App
+# IPC App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+URL: https://ipc-app-ajet.vercel.app/
 
-## What's next? How do I make an app with this?
+Características del proyecto:
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- Autenticación OAuth2.0 por medio de Google y Github. Es requerido autenticarse para poder ingresar a las demás páginas del proyecto.
+- Rol por usuario, definido por permiso para ver la gráfica IPC.
+- Página de gráfica es generada por D3.js, incluye animación de generación de linea. Esta página se puede ver si tiene permiso para ver.
+- Página de configuración, en esta página se puede cambiar los permisos para ver la gráfica de todos los usuarios.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+![alt page](https://res.cloudinary.com/df9fhapay/image/upload/v1680221176/Screenshot_2023-03-30_at_17.06.10_ilrxrx.png)
 
+Este proyecto utiliza:
 - [Next.js](https://nextjs.org)
 - [NextAuth.js](https://next-auth.js.org)
 - [Prisma](https://prisma.io)
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
-
-## Learn More
-
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+- [D3.js](https://d3js.org)
